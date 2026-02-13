@@ -6,6 +6,7 @@ import Host from '../../components/offer/host';
 import NearPlaces from '../../components/offer/near-places';
 import Reviews from '../../components/reviews/reviews';
 import Rating from '../../components/offer/rating';
+import Map from '../../components/map';
 
 export default function OfferPage(): JSX.Element {
   return (
@@ -44,7 +45,7 @@ export default function OfferPage(): JSX.Element {
               <Reviews />
             </div>
           </div>
-          <section className="offer__map map"></section>
+          <Map parentClass='offer__map'/>
         </section>
         <div className="container">
           <NearPlaces />

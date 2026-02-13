@@ -1,6 +1,7 @@
 import Card from '../../components/card';
 import Header from '../../components/header';
 import Locations from '../../components/locations';
+import Map from '../../components/map';
 import SortForm from '../../components/sort-form';
 
 type Props = {
@@ -28,7 +29,7 @@ export default function MainPage({ offerCount }: Props): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map parentClass='cities__map'/>
             </div>
           </div>
         </div>

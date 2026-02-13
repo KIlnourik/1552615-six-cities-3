@@ -1,10 +1,9 @@
 type Props = {
-  parentClassname: string;
+  parentClass: string;
 }
 
-export default function Map({ parentClassname }: Props): JSX.Element {
+export default function Map({ parentClass }: Props): JSX.Element {
   return (
-    <section className='`${rparentClassname}` map'></section>
+    <section className={`${parentClass} map`}></section>
   );
 }
-r
