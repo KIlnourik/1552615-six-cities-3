@@ -1,6 +1,10 @@
-export default function Card(): JSX.Element {
+type Props = {
+  parentClass: string;
+}
+
+export default function Card({parentClass}: Props): JSX.Element {
   return (
-    <article className="cities__card place-card">
+    <article className={`${parentClass}__card place-card`}>
       <div className="place-card__mark">
         <span>Premium</span>
       </div>

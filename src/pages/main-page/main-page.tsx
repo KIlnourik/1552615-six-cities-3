@@ -25,7 +25,7 @@ export default function MainPage({ offerCount }: Props): JSX.Element {
               <b className="places__found">{offerCount} places to stay in Amsterdam</b>
               <SortForm />
               <div className="cities__places-list places__list tabs__content">
-                <Card />
+                <Card parentClass='cities'/>
               </div>
             </section>
             <div className="cities__right-section">
