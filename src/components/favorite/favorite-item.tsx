@@ -1,4 +1,4 @@
-import Card from '../card';
+import Card from '../card/card';
 
 export default function FavoriteItem(): JSX.Element {
   return (
@@ -11,7 +11,7 @@ export default function FavoriteItem(): JSX.Element {
         </div>
       </div>
       <div className="favorites__places">
-        <Card parentClass="favorites"/>
+        <Card parentClass="favorites" />
       </div>
     </li>
   );
