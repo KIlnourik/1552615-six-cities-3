@@ -1,10 +1,13 @@
-import Header from '../../components/header';
+import { Fragment } from 'react';
+import { Helmet } from 'react-helmet-async';
+import Logo from '../../components/logo/logo.tsx';
 
 export default function FavoritePage(): JSX.Element {
   return (
-    <div className="page">
-      <Header />
-
+    <Fragment>
+      <Helmet >
+        <title>6 cities: favorites</title>
+      </Helmet>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
@@ -14,10 +17,8 @@ export default function FavoritePage(): JSX.Element {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
-          <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"></img>
-        </a>
+        <Logo />
       </footer>
-    </div>
+    </Fragment>
   );
 }
