@@ -1,5 +1,3 @@
-export const offerCount = 5;
-
 export enum Pages {
   Main = '/',
   Login = 'login',

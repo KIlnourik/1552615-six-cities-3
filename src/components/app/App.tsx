@@ -8,27 +8,32 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import { AuthStatus, Pages } from '../../const';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
+import { Offer } from '../../types/offer';
+import { Review } from '../../types/review';
 
 type Props = {
-  offerCount: number;
+  offers: Offer[];
+  reviews: Review[];
 };
 
-export default function App({ offerCount }: Props): JSX.Element {
+export default function App(props: Props): JSX.Element {
+  const {offers, reviews} = props;
+
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route path={Pages.Main} element={<Layout />}>
-            <Route index element={<Main offerCount={offerCount} />} />
+            <Route index element={<Main offers={offers} />} />
             <Route path={Pages.Login} element={<LoginPage />} />
             <Route path={Pages.Favorites}
               element={
-                <PrivateRoute authStatus={AuthStatus.NoAuth}>
-                  <FavoritePage />
+                <PrivateRoute authStatus={AuthStatus.Auth}>
+                  <FavoritePage offers={offers}/>
                 </PrivateRoute>
               }
             />
-            <Route path={Pages.Offer} element={<OfferPage />} />
+            <Route path={Pages.Offer} element={<OfferPage reviews={reviews}/>} />
             <Route path={Pages.NotFound} element={<NotFoundPage />} />
           </Route>
         </Routes>
