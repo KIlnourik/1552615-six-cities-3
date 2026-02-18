@@ -7,8 +7,13 @@ import Reviews from '../../components/reviews/reviews';
 import Rating from '../../components/offer/rating';
 import Map from '../../components/map/map';
 import { Helmet } from 'react-helmet-async';
+import { Review } from '../../types/review';
 
-export default function OfferPage(): JSX.Element {
+type Props = {
+  reviews: Review[];
+}
+
+export default function OfferPage({reviews}: Props): JSX.Element {
   return (
     <main className="page__main page__main--offer">
       <Helmet>
@@ -42,7 +47,7 @@ export default function OfferPage(): JSX.Element {
             </div>
             <Facilities />
             <Host />
-            <Reviews />
+            <Reviews reviews={reviews}/>
           </div>
         </div>
         <Map parentClass='offer__map' />

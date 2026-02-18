@@ -1,6 +1,11 @@
+import { Offer } from '../../types/offer';
 import Card from '../card/card';
 
-export default function FavoriteItem(): JSX.Element {
+type Props = {
+  offers: Offer[];
+}
+
+export default function FavoriteItem({offers}: Props): JSX.Element {
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
@@ -11,7 +16,7 @@ export default function FavoriteItem(): JSX.Element {
         </div>
       </div>
       <div className="favorites__places">
-        <Card parentClass="favorites" />
+        {offers && offers.map((offer: Offer) => (<Card parentClass="favorites" offer={offer} key={`${offer.id}_${offer.price}`}/>))}
       </div>
     </li>
   );
