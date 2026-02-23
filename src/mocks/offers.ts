@@ -9,14 +9,14 @@ export const offers: Offer[] = [
     'city': {
       'name': 'Amsterdam',
       'location': {
-        'latitude': 52.35514938496378,
-        'longitude': 4.673877537499948,
+        'latitude': 52.3909553943508,
+        'longitude': 4.85309666406198,
         'zoom': 8
       }
     },
     'location': {
-      'latitude': 52.35514938496378,
-      'longitude': 4.673877537499948,
+      'latitude': 52.3909553943508,
+      'longitude': 4.85309666406198,
       'zoom': 8
     },
     'isFavorite': false,
@@ -29,11 +29,11 @@ export const offers: Offer[] = [
     ],
     'host': {
       'name': 'Oliver Conner',
-      'avatarUrl': 'https://url-to-image/image.png',
+      'avatarUrl': 'https://randomuser.me/api/portraits/women/22.jpg',
       'isPro': false
     },
     'images': [
-      'https://url-to-image/image.png'
+      'https://img.freepik.com/free-photo/cozy-house-with-garden-chairs-terrace_1150-10854.jpg',
     ],
     'maxAdults': 4
   },
@@ -43,16 +43,16 @@ export const offers: Offer[] = [
     'type': 'loft',
     'price': 210,
     'city': {
-      'name': 'Paris',
+      'name': 'Amsterdam',
       'location': {
-        'latitude': 48.856613,
-        'longitude': 2.352222,
+        'latitude': 52.3609553943508,
+        'longitude': 4.85309666406198,
         'zoom': 10
       }
     },
     'location': {
-      'latitude': 48.865633,
-      'longitude': 2.358322,
+      'latitude': 52.3609553943508,
+      'longitude': 4.85309666406198,
       'zoom': 10
     },
     'isFavorite': true,
@@ -84,16 +84,16 @@ export const offers: Offer[] = [
     'type': 'house',
     'price': 95,
     'city': {
-      'name': 'Cologne',
+      'name': 'Amsterdam',
       'location': {
-        'latitude': 50.937531,
-        'longitude': 6.960279,
+        'latitude': 52.3909553943508,
+        'longitude': 4.929309666406198,
         'zoom': 9
       }
     },
     'location': {
-      'latitude': 50.927531,
-      'longitude': 6.970279,
+      'latitude': 52.3909553943508,
+      'longitude': 4.929309666406198,
       'zoom': 9
     },
     'isFavorite': false,
@@ -124,16 +124,16 @@ export const offers: Offer[] = [
     'type': 'apartment',
     'price': 350,
     'city': {
-      'name': 'Brussels',
+      'name': 'Amsterdam',
       'location': {
-        'latitude': 50.850346,
-        'longitude': 4.351721,
+        'latitude': 52.3809553943508,
+        'longitude': 4.939309666406198,
         'zoom': 10
       }
     },
     'location': {
-      'latitude': 50.845346,
-      'longitude': 4.361721,
+      'latitude': 52.3809553943508,
+      'longitude': 4.939309666406198,
       'zoom': 10
     },
     'isFavorite': true,

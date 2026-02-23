@@ -13,7 +13,7 @@ type Props = {
   reviews: Review[];
 }
 
-export default function OfferPage({reviews}: Props): JSX.Element {
+export default function OfferPage({ reviews }: Props): JSX.Element {
   return (
     <main className="page__main page__main--offer">
       <Helmet>
@@ -47,10 +47,22 @@ export default function OfferPage({reviews}: Props): JSX.Element {
             </div>
             <Facilities />
             <Host />
-            <Reviews reviews={reviews}/>
+            <Reviews reviews={reviews} />
           </div>
         </div>
-        <Map parentClass='offer__map' />
+        <Map
+          parentClass='offer__map'
+          city={{
+            name: '',
+            location: {
+              latitude: 0,
+              longitude: 0,
+              zoom: 0
+            }
+          }}
+          offers={[]}
+          selectedOffer={undefined}
+        />
       </section>
       <div className="container">
         <NearPlaces />
