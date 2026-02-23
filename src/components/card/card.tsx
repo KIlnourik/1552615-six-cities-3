@@ -1,14 +1,23 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
+import { MouseEvent } from 'react';
 
 type Props = {
   parentClass: string;
   offer: Offer;
+  onCardHover: (title: string) => void;
 }
 
-export default function Card({ parentClass, offer }: Props): JSX.Element {
+export default function Card({ parentClass, offer, onCardHover }: Props): JSX.Element {
+
+  const handleCardHover = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+
+    onCardHover(event.currentTarget.innerText);
+  };
+
   return (
-    <article className={`${parentClass}__card place-card`}>
+    <article className={`${parentClass}__card place-card`} onMouseEnter={() =>onCardHover(offer?.title)}>
       {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
@@ -39,7 +48,7 @@ export default function Card({ parentClass, offer }: Props): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${offer.id}`}>{offer.description}</Link>
+          <Link to={`/offer/${offer.id}`} onMouseEnter={handleCardHover}>{offer?.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
