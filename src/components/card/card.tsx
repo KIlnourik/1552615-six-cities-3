@@ -17,7 +17,7 @@ export default function Card({ parentClass, offer, onCardHover }: Props): JSX.El
   };
 
   return (
-    <article className={`${parentClass}__card place-card`} onMouseEnter={() =>onCardHover(offer?.title)}>
+    <article className={`${parentClass}__card place-card`} onMouseEnter={() => onCardHover(offer?.title)}>
       {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
