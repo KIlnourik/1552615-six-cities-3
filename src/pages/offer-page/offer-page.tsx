@@ -1,19 +1,41 @@
-import Facilities from '../../components/offer/facilities';
-import Features from '../../components/offer/features';
+import Facilities from '../../components/offer/facilities/facilities';
+import Features from '../../components/offer/features/features';
 import Gallery from '../../components/gallery/gallery';
-import Host from '../../components/offer/host';
-import NearPlaces from '../../components/offer/near-places';
-import Reviews from '../../components/reviews/reviews';
-import Rating from '../../components/offer/rating';
+import Host from '../../components/offer/host/host';
+import Reviews from '../../components/reviews/reviews/reviews';
+import Rating from '../../components/offer/rating/rating';
 import Map from '../../components/map/map';
 import { Helmet } from 'react-helmet-async';
 import { Review } from '../../types/review';
+import NearPlaces from '../../components/offer/near-places/near-places';
+import { useState } from 'react';
+import { City, Offer } from '../../types/offer';
 
 type Props = {
   reviews: Review[];
+  offers: Offer[];
 }
 
-export default function OfferPage({ reviews }: Props): JSX.Element {
+export default function OfferPage({ reviews, offers }: Props): JSX.Element {
+  const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
+
+  const nearPlaces = offers.slice(0, 3);
+
+  const currentCity: City = {
+    'name': 'Amsterdam',
+    'location': {
+      'latitude': 52.3909553943508,
+      'longitude': 4.85309666406198,
+      'zoom': 10
+    }
+  };
+
+  const onCardHover = (title: string) => {
+    const currentOffer = nearPlaces.find((offer) => offer.title === title);
+
+    setSelectedOffer(currentOffer);
+  };
+
   return (
     <main className="page__main page__main--offer">
       <Helmet>
@@ -52,20 +74,16 @@ export default function OfferPage({ reviews }: Props): JSX.Element {
         </div>
         <Map
           parentClass='offer__map'
-          city={{
-            name: '',
-            location: {
-              latitude: 0,
-              longitude: 0,
-              zoom: 0
-            }
-          }}
-          offers={[]}
-          selectedOffer={undefined}
+          city={currentCity}
+          offers={nearPlaces}
+          selectedOffer={selectedOffer}
         />
       </section>
       <div className="container">
-        <NearPlaces />
+        <section className="near-places places">
+          <h2 className="near-places__title">Other places in the neighbourhood</h2>
+          <NearPlaces offers={nearPlaces} onCardHover={onCardHover} />
+        </section>
       </div>
     </main>
   );

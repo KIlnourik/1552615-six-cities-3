@@ -33,7 +33,7 @@ export default function App(props: Props): JSX.Element {
                 </PrivateRoute>
               }
             />
-            <Route path={Pages.Offer} element={<OfferPage reviews={reviews}/>} />
+            <Route path={Pages.Offer} element={<OfferPage offers={offers} reviews={reviews}/>} />
             <Route path={Pages.NotFound} element={<NotFoundPage />} />
           </Route>
         </Routes>

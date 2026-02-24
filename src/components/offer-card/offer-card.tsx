@@ -3,12 +3,12 @@ import { Offer } from '../../types/offer';
 import { MouseEvent } from 'react';
 
 type Props = {
-  parentClass: string;
+  cardClassName: string;
   offer: Offer;
   onCardHover: (title: string) => void;
 }
 
-export default function Card({ parentClass, offer, onCardHover }: Props): JSX.Element {
+export default function OfferCard({ cardClassName, offer, onCardHover }: Props): JSX.Element {
 
   const handleCardHover = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
@@ -17,7 +17,7 @@ export default function Card({ parentClass, offer, onCardHover }: Props): JSX.El
   };
 
   return (
-    <article className={`${parentClass}__card place-card`} onMouseEnter={() => onCardHover(offer?.title)}>
+    <article className={`${cardClassName} place-card`} onMouseEnter={() => onCardHover(offer?.title)}>
       {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
