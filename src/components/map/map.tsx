@@ -28,6 +28,8 @@ export default function Map({ parentClass, city, offers, selectedOffer }: Props)
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
+  const width = parentClass.includes('offer') ? '1144px' : '100%';
+
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
@@ -54,7 +56,7 @@ export default function Map({ parentClass, city, offers, selectedOffer }: Props)
 
   return (
     <section className={`${parentClass} map`}>
-      <div id='map' style={{display: 'block', width: '100%', height: '100%'}} ref={mapRef}>
+      <div id='map' style={{display: 'block', width: width, height: '100%', margin: '0 auto'}} ref={mapRef}>
       </div>
     </section>
   );

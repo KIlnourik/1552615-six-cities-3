@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Offer } from '../../../types/offer';
-import Card from '../../offer-card/offer-card';
+import FavoritePlaces from '../favorite-places/favorite-places';
 
 type Props = {
   offers: Offer[];
@@ -24,11 +24,7 @@ export default function FavoriteItem({ offers }: Props): JSX.Element {
           </a>
         </div>
       </div>
-      <div className="favorites__places">
-        {offers && offers.map((offer: Offer) => (
-          <Card parentClass="favorites" offer={offer} key={`${offer.id}_${offer.price}`} onCardHover={onCardHover} />
-        ))}
-      </div>
+      <FavoritePlaces offers={offers} onCardHover={onCardHover} />
     </li>
   );
 }
