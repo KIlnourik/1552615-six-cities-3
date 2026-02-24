@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo.tsx';
 import { Offer } from '../../types/offer.ts';
-import FavoriteList from '../../components/favorite/favorite-list.tsx';
+import FavoriteList from '../../components/favorite/favorite-list/favorite-list.tsx';
 
 type Props = {
   offers: Offer[];
@@ -18,7 +18,7 @@ export default function FavoritePage({ offers }: Props): JSX.Element {
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            <FavoriteList offers={offers}/>
+            <FavoriteList offers={offers} />
           </section>
         </div>
       </main>

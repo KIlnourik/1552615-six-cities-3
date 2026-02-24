@@ -1,6 +1,6 @@
-import { Review } from '../../types/review';
-import ReviewForm from './review-form';
-import ReviewList from './review-list';
+import { Review } from '../../../types/review';
+import ReviewForm from '../review-form/review-form';
+import ReviewList from '../review-list/review-list';
 
 type Props = {
   reviews: Review[];

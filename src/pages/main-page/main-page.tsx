@@ -1,10 +1,10 @@
 import { Helmet } from 'react-helmet-async';
-import Card from '../../components/card/card';
 import Locations from '../../components/locations/locations';
 import Map from '../../components/map/map';
 import SortForm from '../../components/sort-form/sort-form';
 import { City, Offer } from '../../types/offer';
 import { useState } from 'react';
+import MainOffersList from '../../components/main-offers-list/main-offers-list';
 
 type Props = {
   offers: Offer[];
@@ -43,11 +43,7 @@ export default function MainPage({ offers }: Props): JSX.Element {
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{offers ? offers.length : 0} places to stay in Amsterdam</b>
             <SortForm />
-            <div className="cities__places-list places__list tabs__content">
-              {offers && offers.map((offer: Offer) => (
-                <Card parentClass='cities' offer={offer} key={`${offer.id}-${offer.title}`} onCardHover={onCardHover}/>
-              ))}
-            </div>
+            <MainOffersList offers={offers} onCardHover={onCardHover} />
           </section>
           <div className="cities__right-section" >
             <Map parentClass='cities__map'
