@@ -7,16 +7,16 @@ export const offers: Offer[] = [
     'type': 'apartment',
     'price': 120,
     'city': {
-      'name': 'Amsterdam',
+      'name': 'Paris',
       'location': {
-        'latitude': 52.3909553943508,
-        'longitude': 4.85309666406198,
-        'zoom': 8
-      }
+        'latitude': 48.8566,
+        'longitude': 2.3522,
+        'zoom': 10
+      },
     },
     'location': {
-      'latitude': 52.3909553943508,
-      'longitude': 4.85309666406198,
+      'latitude': 48.8566,
+      'longitude': 2.3522,
       'zoom': 8
     },
     'isFavorite': false,
@@ -205,17 +205,17 @@ export const offers: Offer[] = [
     'type': 'house',
     'price': 280,
     'city': {
-      'name': 'Amsterdam',
+      'name': 'Cologne',
       'location': {
-        'latitude': 52.355149,
-        'longitude': 4.673877,
-        'zoom': 8
-      }
+        'latitude': 50.9333,
+        'longitude': 6.95,
+        'zoom': 10
+      },
     },
     'location': {
-      'latitude': 52.365149,
-      'longitude': 4.683877,
-      'zoom': 8
+      'latitude': 50.935,
+      'longitude': 6.96,
+      'zoom': 10
     },
     'isFavorite': false,
     'isPremium': true,

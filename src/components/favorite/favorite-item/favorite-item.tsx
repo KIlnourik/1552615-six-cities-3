@@ -24,7 +24,7 @@ export default function FavoriteItem({ offers }: Props): JSX.Element {
           </a>
         </div>
       </div>
-      <FavoritePlaces offers={offers} onCardHover={onCardHover} />
+      <FavoritePlaces onCardHover={onCardHover} />
     </li>
   );
 }

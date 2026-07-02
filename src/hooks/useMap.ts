@@ -1,11 +1,11 @@
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
-import { City } from '../types/offer';
 import { Map, TileLayer } from 'leaflet';
+import { useAppSelector } from '.';
 
 export default function useMap(
   mapRef: MutableRefObject<HTMLElement | null>,
-  city: City
 ) {
+  const city = useAppSelector((state) => state.city);
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef(false);
 
@@ -31,7 +31,14 @@ export default function useMap(
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [mapRef, city]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mapRef]);
+
+  useEffect(() => {
+    if (map && city) {
+      map.setView([city.location.latitude, city.location.longitude], map.getZoom());
+    }
+  }, [map, city]);
 
   return map;
 }

@@ -24,7 +24,7 @@ export default function App(props: Props): JSX.Element {
       <BrowserRouter>
         <Routes>
           <Route path={Pages.Main} element={<Layout />}>
-            <Route index element={<Main offers={offers} />} />
+            <Route index element={<Main />} />
             <Route path={Pages.Login} element={<LoginPage />} />
             <Route path={Pages.Favorites}
               element={

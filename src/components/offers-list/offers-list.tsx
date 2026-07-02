@@ -1,14 +1,16 @@
+import { useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
 import OfferCard from '../offer-card/offer-card';
 
 type Props = {
   className: string;
   cardClassName: string;
-  offers: Offer[];
   onCardHover: (title: string) => void;
 }
 
-export default function OffersList({className, cardClassName, offers, onCardHover}: Props) {
+export default function OffersList({className, cardClassName, onCardHover}: Props) {
+  const offers = useAppSelector((state) => state.offers);
+
   return (
     <div className={`${className} places__list`}>
       {offers && offers.map((offer: Offer) => (
