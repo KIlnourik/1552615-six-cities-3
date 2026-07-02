@@ -1,25 +1,16 @@
 import { Helmet } from 'react-helmet-async';
-import Locations from '../../components/locations/locations';
 import Map from '../../components/map/map';
 import SortForm from '../../components/sort-form/sort-form';
-import { City, Offer } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import { useState } from 'react';
 import MainOffersList from '../../components/main-offers-list/main-offers-list';
+import CitiesList from '../../components/cities-list/citites-list';
+import { useAppSelector } from '../../hooks';
 
-type Props = {
-  offers: Offer[];
-};
 
-export default function MainPage({ offers }: Props): JSX.Element {
-  const currentCity: City = {
-    'name': 'Amsterdam',
-    'location': {
-      'latitude': 52.3909553943508,
-      'longitude': 4.85309666406198,
-      'zoom': 10
-    }
-  };
-
+export default function MainPage(): JSX.Element {
+  const currentCity = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers);
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
 
   const onCardHover = (title: string) => {
@@ -35,24 +26,36 @@ export default function MainPage({ offers }: Props): JSX.Element {
       </Helmet>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
-        <Locations />
+        <CitiesList />
       </div>
       <div className="cities">
-        <div className="cities__places-container container">
-          <section className="cities__places places">
-            <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offers ? offers.length : 0} places to stay in Amsterdam</b>
-            <SortForm />
-            <MainOffersList offers={offers} onCardHover={onCardHover} />
-          </section>
-          <div className="cities__right-section" >
-            <Map parentClass='cities__map'
-              city={currentCity}
-              offers={offers ?? null}
-              selectedOffer={selectedOffer}
-            />
-          </div>
-        </div>
+        {offers.length ?
+          (
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{offers ? offers.length : 0} places to stay in {currentCity.name}</b>
+                <SortForm />
+                <MainOffersList onCardHover={onCardHover} />
+              </section>
+              <div className="cities__right-section" >
+                <Map
+                  parentClass='cities__map'
+                  selectedOffer={selectedOffer}
+                />
+              </div>
+            </div>) :
+          (
+            <div className="cities__places-container cities__places-container--empty container">
+              <section className="cities__no-places">
+                <div className="cities__status-wrapper tabs__content">
+                  <b className="cities__status">No places to stay available</b>
+                  <p className="cities__status-description">We could not find any property available at the moment in Dusseldorf</p>
+                </div>
+              </section>
+              <div className="cities__right-section"></div>
+            </div>
+          )}
       </div>
     </main>
   );

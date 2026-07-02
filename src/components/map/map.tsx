@@ -1,14 +1,13 @@
 import { useEffect, useRef } from 'react';
-import { City, Offer } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/useMap';
 import 'leaflet/dist/leaflet.css';
+import { useAppSelector } from '../../hooks';
 
 type Props = {
   parentClass: string;
-  city: City;
-  offers: Offer[];
   selectedOffer: Offer | undefined;
 }
 
@@ -24,9 +23,11 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-export default function Map({ parentClass, city, offers, selectedOffer }: Props): JSX.Element {
+export default function Map({parentClass, selectedOffer }: Props): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
+
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+  const map = useMap(mapRef);
 
   const width = parentClass.includes('offer') ? '1144px' : '100%';
 
@@ -56,7 +57,7 @@ export default function Map({ parentClass, city, offers, selectedOffer }: Props)
 
   return (
     <section className={`${parentClass} map`}>
-      <div id='map' style={{display: 'block', width: width, height: '100%', margin: '0 auto'}} ref={mapRef}>
+      <div id='map' style={{ display: 'block', width: width, height: '100%', margin: '0 auto' }} ref={mapRef}>
       </div>
     </section>
   );
