@@ -9,7 +9,7 @@ import { Helmet } from 'react-helmet-async';
 import { Review } from '../../types/review';
 import NearPlaces from '../../components/offer/near-places/near-places';
 import { useState } from 'react';
-import { City, Offer } from '../../types/offer';
+import { Offer } from '../../types/offer';
 
 type Props = {
   reviews: Review[];
@@ -20,15 +20,6 @@ export default function OfferPage({ reviews, offers }: Props): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
 
   const nearPlaces = offers.slice(0, 3);
-
-  const currentCity: City = {
-    'name': 'Amsterdam',
-    'location': {
-      'latitude': 52.3909553943508,
-      'longitude': 4.85309666406198,
-      'zoom': 10
-    }
-  };
 
   const onCardHover = (title: string) => {
     const currentOffer = nearPlaces.find((offer) => offer.title === title);
@@ -74,15 +65,13 @@ export default function OfferPage({ reviews, offers }: Props): JSX.Element {
         </div>
         <Map
           parentClass='offer__map'
-          city={currentCity}
-          offers={nearPlaces}
           selectedOffer={selectedOffer}
         />
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <NearPlaces offers={nearPlaces} onCardHover={onCardHover} />
+          <NearPlaces onCardHover={onCardHover} />
         </section>
       </div>
     </main>
