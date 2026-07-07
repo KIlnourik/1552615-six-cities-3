@@ -5,19 +5,17 @@ import Layout from '../layout/layout';
 import LoginPage from '../../pages/login-page/login-page';
 import FavoritePage from '../../pages/favorite-page/favorite-page';
 import OfferPage from '../../pages/offer-page/offer-page';
-import { AuthStatus, Pages } from '../../const';
+import { AuthStatus, Pages } from '../../utils/const';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
-import { Offer } from '../../types/offer';
 import { Review } from '../../types/review';
 
 type Props = {
-  offers: Offer[];
   reviews: Review[];
 };
 
 export default function App(props: Props): JSX.Element {
-  const {offers, reviews} = props;
+  const { reviews } = props;
 
   return (
     <HelmetProvider>
@@ -29,17 +27,15 @@ export default function App(props: Props): JSX.Element {
             <Route path={Pages.Favorites}
               element={
                 <PrivateRoute authStatus={AuthStatus.Auth}>
-                  <FavoritePage offers={offers}/>
+                  <FavoritePage />
                 </PrivateRoute>
               }
             />
-            <Route path={Pages.Offer} element={<OfferPage offers={offers} reviews={reviews}/>} />
+            <Route path={Pages.Offer} element={<OfferPage reviews={reviews} />} />
             <Route path={Pages.NotFound} element={<NotFoundPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
     </HelmetProvider>
-
-
   );
 }

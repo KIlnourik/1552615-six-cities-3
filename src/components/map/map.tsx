@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Offer } from '../../types/offer';
-import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
+import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../utils/const';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/useMap';
 import 'leaflet/dist/leaflet.css';
@@ -23,7 +23,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-export default function Map({parentClass, selectedOffer }: Props): JSX.Element {
+export default function Map({ parentClass, selectedOffer }: Props): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
 
   const mapRef = useRef(null);

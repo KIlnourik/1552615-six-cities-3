@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { AuthStatus } from '../../const';
+import { AuthStatus } from '../../utils/const';
 
 type Props = {
   authStatus: AuthStatus;
