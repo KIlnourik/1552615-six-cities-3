@@ -1,6 +1,6 @@
 
 import { useEffect } from 'react';
-import { CITIES, DEFAULT_CITY } from '../../const';
+import { CITIES, DEFAULT_CITY } from '../../utils/const';
 import { useAppDispatch } from '../../hooks';
 import { changeCity, setOffers } from '../../store/action';
 import City from '../city/city';
@@ -17,7 +17,7 @@ export default function CitiesList(): JSX.Element {
 
   useEffect(() => {
     dispatch(setOffers(DEFAULT_CITY));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import { City } from './types/offer';
+import { City } from '../types/offer';
 
 export enum Pages {
   Main = '/',
@@ -18,6 +18,20 @@ export enum AuthStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export enum SortDirection {
+  Popular = 'Popular',
+  PriceAsc = 'Price: low to high',
+  PriceDesc = 'Price: high to low',
+  RatingDesc = 'Top rated first'
+}
+
+export const SORT_BY = [
+  SortDirection.Popular,
+  SortDirection.PriceAsc,
+  SortDirection.PriceDesc,
+  SortDirection.RatingDesc
+];
 
 export const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
 

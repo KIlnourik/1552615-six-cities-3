@@ -1,14 +1,12 @@
 import { Fragment } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo.tsx';
-import { Offer } from '../../types/offer.ts';
 import FavoriteList from '../../components/favorite/favorite-list/favorite-list.tsx';
+import { useAppSelector } from '../../hooks/index.ts';
 
-type Props = {
-  offers: Offer[];
-};
+export default function FavoritePage(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
 
-export default function FavoritePage({ offers }: Props): JSX.Element {
   return (
     <Fragment>
       <Helmet >

@@ -10,15 +10,15 @@ import { Review } from '../../types/review';
 import NearPlaces from '../../components/offer/near-places/near-places';
 import { useState } from 'react';
 import { Offer } from '../../types/offer';
+import { useAppSelector } from '../../hooks';
 
 type Props = {
   reviews: Review[];
-  offers: Offer[];
 }
 
-export default function OfferPage({ reviews, offers }: Props): JSX.Element {
+export default function OfferPage({ reviews}: Props): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
-
+  const offers = useAppSelector((state) => state.offers);
   const nearPlaces = offers.slice(0, 3);
 
   const onCardHover = (title: string) => {

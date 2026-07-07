@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Pages } from '../../const';
+import { Pages } from '../../utils/const';
 import { Helmet } from 'react-helmet-async';
 
 export default function NotFoundPage(): JSX.Element {

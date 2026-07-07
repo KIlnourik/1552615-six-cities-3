@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Pages } from '../../const';
+import { Pages } from '../../utils/const';
 
 export default function Logo(): JSX.Element {
   return (

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
 import { MouseEvent } from 'react';
+import { getRating } from '../../utils/helpers';
 
 type Props = {
   cardClassName: string;
@@ -15,6 +16,8 @@ export default function OfferCard({ cardClassName, offer, onCardHover }: Props):
 
     onCardHover(event.currentTarget.innerText);
   };
+
+  const rating = getRating(offer.rating);
 
   return (
     <article className={`${cardClassName} place-card`} onMouseEnter={() => onCardHover(offer?.title)}>
@@ -43,7 +46,7 @@ export default function OfferCard({ cardClassName, offer, onCardHover }: Props):
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }}></span>
+            <span style={{ width: `${rating}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

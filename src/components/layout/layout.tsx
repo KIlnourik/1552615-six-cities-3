@@ -1,6 +1,6 @@
-import { Outlet, useMatch} from 'react-router-dom';
+import { Outlet, useMatch } from 'react-router-dom';
 import Header from '../header/header';
-import { PageClassNames, Pages } from '../../const';
+import { PageClassNames, Pages } from '../../utils/const';
 import classNames from 'classnames';
 
 export default function Layout(): JSX.Element {

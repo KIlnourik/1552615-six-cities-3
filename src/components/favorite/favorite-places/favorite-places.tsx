@@ -1,3 +1,4 @@
+import { useAppSelector } from '../../../hooks';
 import OffersList from '../../offers-list/offers-list';
 
 type Props = {
@@ -6,9 +7,12 @@ type Props = {
 
 export default function FavoritePlaces(props: Props) {
   const {onCardHover} = props;
+  const offers = useAppSelector((state) => state.offers);
+
 
   return (
     <OffersList
+      offers={offers}
       className='favorites__places'
       cardClassName='favorites__card'
       onCardHover={onCardHover}

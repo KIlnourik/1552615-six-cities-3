@@ -138,7 +138,7 @@ export const offers: Offer[] = [
     },
     'isFavorite': true,
     'isPremium': true,
-    'rating': 5,
+    'rating': 2,
     'description': 'Stunning penthouse with a private 50m² terrace offering panoramic city views. Modern interior, high ceilings, and smart home features.',
     'bedrooms': 3,
     'goods': [

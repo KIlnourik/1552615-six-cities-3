@@ -1,5 +1,3 @@
-/* eslint-env node */
-
 module.exports = {
   env: { browser: true, es2022: true },
   extends: [
