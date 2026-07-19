@@ -1,6 +1,6 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import {createAsyncThunk} from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
-import { AxiosInstance } from 'axios';
+import {AxiosError, AxiosInstance} from 'axios';
 import { ApiRoute, AuthStatus, TIMEOUT_SHOW_ERROR } from '../utils/const';
 import { Offer } from '../types/offer';
 import { loadOffers, requireAuthorization, setError, setOffersLoadingStatus } from './action';
@@ -66,10 +66,23 @@ export const loginAction = createAsyncThunk<void, Auth, {
   extra: AxiosInstance;
 }>(
   'user/login',
-  async ({email, password}, {dispatch, extra: api}) => {
-    const {data: {token}} = await api.post<User>(ApiRoute.Login, {email, password});
-    saveToken(token);
-    dispatch(requireAuthorization(AuthStatus.Auth));
+  async ({email, password}, {dispatch, extra: api, rejectWithValue}) => {
+    try {
+      const { data: { token } } = await api.post<User>(ApiRoute.Login, { email, password });
+      saveToken(token);
+      dispatch(requireAuthorization(AuthStatus.Auth));
+    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const message = error instanceof AxiosError
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        ? error.response?.data?.message ?? error.message
+        : 'Неизвестная ошибка';
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      dispatch(setError(message));
+
+      return rejectWithValue(message);
+    }
   },
 );
 
