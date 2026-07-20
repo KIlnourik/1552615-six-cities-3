@@ -11,8 +11,7 @@ import {useEffect, useState} from 'react';
 import {Offer} from '../../types/offer';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useParams} from 'react-router-dom';
-import {fetchReviewsAction, fetchSingleOfferAction} from '../../store/api-actions.ts';
-import LoadingScreen from '../loading-screen/loading-screen.tsx';
+import {fetchNearOffersAction, fetchReviewsAction, fetchSingleOfferAction} from '../../store/api-actions.ts';
 
 export default function OfferPage(): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
@@ -27,12 +26,13 @@ export default function OfferPage(): JSX.Element {
   const isReviewsLoading = useAppSelector((state) => state.isReviewsLoading);
 
   useEffect(() => {
-    if (id && !isOfferLoading) {
+    if (id) {
       dispatch(fetchSingleOfferAction(id));
       dispatch(fetchReviewsAction(id));
+      dispatch(fetchNearOffersAction(id));
     }
     // eslint-disable-next-line
-  }, [dispatch, id]);
+  }, [id]);
 
   const onCardHover = (title: string) => {
     const currentOffer = nearPlaces.find((nearOffer) => nearOffer.title === title);
@@ -80,7 +80,7 @@ export default function OfferPage(): JSX.Element {
                 reviews?.length > 0 && !isReviewsLoading ? (
                   <Reviews reviews={reviews}/>
                 ) : (
-                  <LoadingScreen />
+                  <p>Loading...</p>
                 )
               }
             </div>

@@ -5,7 +5,8 @@ import {ApiRoute, AuthStatus, Pages, TIMEOUT_SHOW_ERROR} from '../utils/const';
 import { Offer } from '../types/offer';
 import {
   loadOffers, requireAuthorization, setError, setOffersLoadingStatus, redirectToRoute,
-  setSingleOfferLoadingStatus, loadSingleOffer, setReviewsLoadingStatus, loadReviews
+  setSingleOfferLoadingStatus, loadSingleOffer, setReviewsLoadingStatus, loadReviews, setNearOffersLoadingStatus,
+  loadNearOffers
 } from './action';
 import { User } from '../types/user';
 import { Auth } from '../types/auth';
@@ -76,6 +77,25 @@ export const fetchReviewsAction = createAsyncThunk<
     const {data} = await api.get<Review[]>(`${ApiRoute.Reviews}/${offerId}`);
     dispatch(setReviewsLoadingStatus(false));
     dispatch(loadReviews(data));
+  }
+);
+
+export const fetchNearOffersAction = createAsyncThunk<
+  void,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+
+  }
+>(
+  'offers/fetchNearOffers',
+  async (id, {dispatch, extra: api}) => {
+    dispatch(setNearOffersLoadingStatus(true));
+    const {data} = await api.get<Offer[]>(`${ApiRoute.Offers}/${id}/nearby`);
+    dispatch(setNearOffersLoadingStatus(false));
+    dispatch(loadNearOffers(data));
   }
 );
 

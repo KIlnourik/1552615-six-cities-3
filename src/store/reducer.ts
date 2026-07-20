@@ -8,7 +8,7 @@ import {
   setError,
   setOffersLoadingStatus,
   setSingleOfferLoadingStatus,
-  setReviewsLoadingStatus,
+  setReviewsLoadingStatus, loadNearOffers, setNearOffersLoadingStatus,
 } from './action';
 import { AuthStatus, DEFAULT_CITY } from '../utils/const';
 import { City, Offer } from '../types/offer';
@@ -22,6 +22,8 @@ type InitialState = {
   isOfferLoading: boolean;
   reviews: Review[];
   isReviewsLoading: boolean;
+  nearOffers: Offer[];
+  isNearOffersLoading: boolean;
   authStatus: AuthStatus;
   error: string | null;
 }
@@ -34,6 +36,8 @@ const initialState: InitialState = {
   isOfferLoading: false,
   reviews: [] as Review[],
   isReviewsLoading: false,
+  nearOffers: [] as Offer[],
+  isNearOffersLoading: false,
   authStatus: AuthStatus.Unknown,
   error: null
 };
@@ -60,6 +64,12 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setReviewsLoadingStatus, (state, action) => {
       state.isOfferLoading = action.payload;
+    })
+    .addCase(loadNearOffers, (state, action) => {
+      state.nearOffers = action.payload;
+    })
+    .addCase(setNearOffersLoadingStatus, (state, action) => {
+      state.isNearOffersLoading = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authStatus = action.payload;

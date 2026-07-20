@@ -11,5 +11,7 @@ export const setSingleOfferLoadingStatus = createAction<boolean>('offers/setSing
 export const loadReviews = createAction<Review[]>('review/loadReviews');
 export const setReviewsLoadingStatus = createAction<boolean>('offers/setReviewsLoadingStatus');
 export const requireAuthorization = createAction<AuthStatus>('user/requireAuthorization');
+export const loadNearOffers = createAction<Offer[]>('offer/loadNearOffers');
+export const setNearOffersLoadingStatus = createAction<boolean>('offers/setNearOffersLoadingStatus');
 export const setError = createAction<string | null>('error/setError');
 export const redirectToRoute = createAction<Pages>('data/redirectToRoute');
