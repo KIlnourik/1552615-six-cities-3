@@ -1,9 +1,9 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import {AxiosError, AxiosInstance} from 'axios';
-import { ApiRoute, AuthStatus, TIMEOUT_SHOW_ERROR } from '../utils/const';
+import {ApiRoute, AuthStatus, Pages, TIMEOUT_SHOW_ERROR} from '../utils/const';
 import { Offer } from '../types/offer';
-import { loadOffers, requireAuthorization, setError, setOffersLoadingStatus } from './action';
+import { loadOffers, requireAuthorization, setError, setOffersLoadingStatus, redirectToRoute } from './action';
 import { User } from '../types/user';
 import { Auth } from '../types/auth';
 import { dropToken, saveToken } from '../services/token';
@@ -71,6 +71,7 @@ export const loginAction = createAsyncThunk<void, Auth, {
       const { data: { token } } = await api.post<User>(ApiRoute.Login, { email, password });
       saveToken(token);
       dispatch(requireAuthorization(AuthStatus.Auth));
+      dispatch(redirectToRoute(Pages.Main));
     } catch (error) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const message = error instanceof AxiosError

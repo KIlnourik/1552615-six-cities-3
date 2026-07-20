@@ -1,10 +1,29 @@
 import Logo from '../logo/logo';
 import {AuthStatus, Pages} from '../../utils/const.ts';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {Link} from 'react-router-dom';
+import {SyntheticEvent, useEffect, useState} from 'react';
+import {logoutAction} from '../../store/api-actions.ts';
 
 export default function Header(): JSX.Element {
   const authStatus = useAppSelector((state) => state.authStatus);
+  const [isAuth, setIsAuth] = useState<boolean>(false);
+
+  const dispatch = useAppDispatch();
+
+  const handleLogoutClick = (event: SyntheticEvent) => {
+    event.preventDefault();
+    dispatch(logoutAction);
+    setIsAuth(false);
+  };
+
+  useEffect(() => {
+    if (authStatus === AuthStatus.Auth) {
+      setIsAuth(true);
+    } else {
+      setIsAuth(false);
+    }
+  }, [authStatus]);
 
   return (
     <header className="header">
@@ -16,7 +35,7 @@ export default function Header(): JSX.Element {
           <nav className="header__nav">
             <ul className="header__nav-list">
               {
-                authStatus === AuthStatus.Auth ? (
+                isAuth ? (
                   <>
                     <li className="header__nav-item user">
                       <a className="header__nav-link header__nav-link--profile" href="#">
@@ -27,9 +46,9 @@ export default function Header(): JSX.Element {
                       </a>
                     </li>
                     <li className="header__nav-item">
-                      <a className="header__nav-link" href="#">
+                      <Link className="header__nav-link" to={Pages.Main} onClick={handleLogoutClick}>
                         <span className="header__signout">Sign out</span>
-                      </a>
+                      </Link>
                     </li>
                   </>
                 ) : (
