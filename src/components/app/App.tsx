@@ -1,5 +1,5 @@
 import Main from '../../pages/main-page/main-page';
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import Layout from '../layout/layout';
 import LoginPage from '../../pages/login-page/login-page';
@@ -10,6 +10,8 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import HistoryRouter from '../history-route/history-route.tsx';
+import browserHistory from '../../browser-history.ts';
 
 export default function App(): JSX.Element {
 
@@ -21,7 +23,7 @@ export default function App(): JSX.Element {
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route path={Pages.Main} element={<Layout />}>
             <Route index element={<Main />} />
@@ -37,7 +39,7 @@ export default function App(): JSX.Element {
             <Route path={Pages.NotFound} element={<NotFoundPage />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }
