@@ -6,6 +6,8 @@ import { Review } from '../types/review';
 export const changeCity = createAction<City>('city/changeCity');
 export const loadOffers = createAction<Offer[]>('offer/loadOffers');
 export const setOffersLoadingStatus = createAction<boolean>('offers/setOffersLoadingStatus');
+export const loadSingleOffer = createAction<Offer|null>('offer/loadSingleOffer');
+export const setSingleOfferLoadingStatus = createAction<boolean>('offers/setSingleOfferLoadingStatus');
 export const loadReviews = createAction<Review[]>('review/loadReviews');
 export const requireAuthorization = createAction<AuthStatus>('user/requireAuthorization');
 export const setError = createAction<string | null>('error/setError');

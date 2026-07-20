@@ -3,7 +3,10 @@ import { AppDispatch, State } from '../types/state';
 import {AxiosError, AxiosInstance} from 'axios';
 import {ApiRoute, AuthStatus, Pages, TIMEOUT_SHOW_ERROR} from '../utils/const';
 import { Offer } from '../types/offer';
-import { loadOffers, requireAuthorization, setError, setOffersLoadingStatus, redirectToRoute } from './action';
+import {
+  loadOffers, requireAuthorization, setError, setOffersLoadingStatus, redirectToRoute,
+  setSingleOfferLoadingStatus, loadSingleOffer
+} from './action';
 import { User } from '../types/user';
 import { Auth } from '../types/auth';
 import { dropToken, saveToken } from '../services/token';
@@ -36,6 +39,24 @@ export const fetchOffersAction = createAsyncThunk<
     const {data} = await api.get<Offer[]>(ApiRoute.Offers);
     dispatch(setOffersLoadingStatus(false));
     dispatch(loadOffers(data));
+  }
+);
+
+export const fetchSingleOfferAction = createAsyncThunk<
+  void,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'offers/fetchSingleOffer',
+  async (offerId, {dispatch, extra: api}) => {
+    dispatch(setSingleOfferLoadingStatus(true));
+    const {data} = await api.get<Offer>(`${ApiRoute.Offers}/${offerId}`);
+    dispatch(setSingleOfferLoadingStatus(false));
+    dispatch(loadSingleOffer(data));
   }
 );
 

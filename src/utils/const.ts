@@ -10,10 +10,6 @@ export enum Pages {
 
 export enum ApiRoute {
   Offers = '/offers',
-  Offer = '/offers/{offerId}',
-  NearPlaces = '/offers/{offerId}/nearby',
-  Favorite = '/favorite',
-  Comments = '/comments/{offerId}',
   Login = '/login',
   Logout = '/logout'
 }
