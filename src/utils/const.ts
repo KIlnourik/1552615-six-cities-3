@@ -11,7 +11,8 @@ export enum Pages {
 export enum ApiRoute {
   Offers = '/offers',
   Login = '/login',
-  Logout = '/logout'
+  Logout = '/logout',
+  Reviews = '/comments'
 }
 
 export enum PageClassNames {

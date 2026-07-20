@@ -11,22 +11,25 @@ import {useEffect, useState} from 'react';
 import {Offer} from '../../types/offer';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useParams} from 'react-router-dom';
-import {fetchSingleOfferAction} from '../../store/api-actions.ts';
+import {fetchReviewsAction, fetchSingleOfferAction} from '../../store/api-actions.ts';
+import LoadingScreen from '../loading-screen/loading-screen.tsx';
 
 export default function OfferPage(): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
   const offers = useAppSelector((state) => state.offers);
-  const reviews = useAppSelector((state) => state.reviews);
   const nearPlaces = offers.slice(0, 3);
 
   const {id} = useParams();
   const dispatch = useAppDispatch();
   const offer = useAppSelector((state) => state.offer);
   const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
+  const reviews = useAppSelector((state) => state.reviews);
+  const isReviewsLoading = useAppSelector((state) => state.isReviewsLoading);
 
   useEffect(() => {
     if (id && !isOfferLoading) {
       dispatch(fetchSingleOfferAction(id));
+      dispatch(fetchReviewsAction(id));
     }
     // eslint-disable-next-line
   }, [dispatch, id]);
@@ -73,7 +76,13 @@ export default function OfferPage(): JSX.Element {
               </div>
               <Facilities id={offer.id} goods={offer.goods}/>
               <Host host={offer.host}/>
-              <Reviews reviews={reviews}/>
+              {
+                reviews?.length > 0 && !isReviewsLoading ? (
+                  <Reviews reviews={reviews}/>
+                ) : (
+                  <LoadingScreen />
+                )
+              }
             </div>
           </div>
           <Map

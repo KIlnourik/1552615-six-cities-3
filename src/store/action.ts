@@ -9,6 +9,7 @@ export const setOffersLoadingStatus = createAction<boolean>('offers/setOffersLoa
 export const loadSingleOffer = createAction<Offer|null>('offer/loadSingleOffer');
 export const setSingleOfferLoadingStatus = createAction<boolean>('offers/setSingleOfferLoadingStatus');
 export const loadReviews = createAction<Review[]>('review/loadReviews');
+export const setReviewsLoadingStatus = createAction<boolean>('offers/setReviewsLoadingStatus');
 export const requireAuthorization = createAction<AuthStatus>('user/requireAuthorization');
 export const setError = createAction<string | null>('error/setError');
 export const redirectToRoute = createAction<Pages>('data/redirectToRoute');

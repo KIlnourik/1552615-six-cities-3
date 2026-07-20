@@ -5,12 +5,13 @@ import {ApiRoute, AuthStatus, Pages, TIMEOUT_SHOW_ERROR} from '../utils/const';
 import { Offer } from '../types/offer';
 import {
   loadOffers, requireAuthorization, setError, setOffersLoadingStatus, redirectToRoute,
-  setSingleOfferLoadingStatus, loadSingleOffer
+  setSingleOfferLoadingStatus, loadSingleOffer, setReviewsLoadingStatus, loadReviews
 } from './action';
 import { User } from '../types/user';
 import { Auth } from '../types/auth';
 import { dropToken, saveToken } from '../services/token';
 import { store } from '.';
+import {Review} from '../types/review.ts';
 
 
 export const clearErrorAction = createAsyncThunk(
@@ -57,6 +58,24 @@ export const fetchSingleOfferAction = createAsyncThunk<
     const {data} = await api.get<Offer>(`${ApiRoute.Offers}/${offerId}`);
     dispatch(setSingleOfferLoadingStatus(false));
     dispatch(loadSingleOffer(data));
+  }
+);
+
+export const fetchReviewsAction = createAsyncThunk<
+  void,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'reviews/fetchReviews',
+  async (offerId, {dispatch, extra: api}) => {
+    dispatch(setReviewsLoadingStatus(true));
+    const {data} = await api.get<Review[]>(`${ApiRoute.Reviews}/${offerId}`);
+    dispatch(setReviewsLoadingStatus(false));
+    dispatch(loadReviews(data));
   }
 );
 
