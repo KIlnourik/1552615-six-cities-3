@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
-import {AxiosError, AxiosInstance} from 'axios';
+import {AxiosInstance} from 'axios';
 import {ApiRoute, AuthStatus, Pages, TIMEOUT_SHOW_ERROR} from '../utils/const';
 import { Offer } from '../types/offer';
 import {
@@ -13,6 +13,8 @@ import { Auth } from '../types/auth';
 import { dropToken, saveToken } from '../services/token';
 import { store } from '.';
 import {Review} from '../types/review.ts';
+import {UserReview} from '../types/user-review.ts';
+import {getErrorMessage} from '../utils/helpers.ts';
 
 
 export const clearErrorAction = createAsyncThunk(
@@ -99,6 +101,25 @@ export const fetchNearOffersAction = createAsyncThunk<
   }
 );
 
+export const sendReviewAction = createAsyncThunk<void, UserReview, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/sendReview',
+  async ({ comment, rating, offerId }, {dispatch, extra: api, rejectWithValue }) => {
+    try {
+      rating = parseInt(String(rating), 10);
+      await api.post<UserReview>(`${ApiRoute.Reviews}/${offerId}`, { comment, rating });
+      dispatch(redirectToRoute(`${ApiRoute.Offers}/${offerId}`));
+    } catch (error) {
+      const message = getErrorMessage(error);
+      dispatch(setError(message));
+      return rejectWithValue(message);
+    }
+  },
+);
+
 export const checkAuthAction = createAsyncThunk<
   void,
   undefined,
@@ -133,15 +154,8 @@ export const loginAction = createAsyncThunk<void, Auth, {
       dispatch(requireAuthorization(AuthStatus.Auth));
       dispatch(redirectToRoute(Pages.Main));
     } catch (error) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const message = error instanceof AxiosError
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        ? error.response?.data?.message ?? error.message
-        : 'Неизвестная ошибка';
-
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      const message = getErrorMessage(error);
       dispatch(setError(message));
-
       return rejectWithValue(message);
     }
   },
