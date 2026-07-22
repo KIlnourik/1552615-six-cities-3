@@ -1,13 +1,20 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
-import {AxiosError, AxiosInstance} from 'axios';
+import {AxiosInstance} from 'axios';
 import {ApiRoute, AuthStatus, Pages, TIMEOUT_SHOW_ERROR} from '../utils/const';
 import { Offer } from '../types/offer';
-import { loadOffers, requireAuthorization, setError, setOffersLoadingStatus, redirectToRoute } from './action';
+import {
+  loadOffers, requireAuthorization, setError, setOffersLoadingStatus, redirectToRoute,
+  setSingleOfferLoadingStatus, loadSingleOffer, setReviewsLoadingStatus, loadReviews, setNearOffersLoadingStatus,
+  loadNearOffers
+} from './action';
 import { User } from '../types/user';
 import { Auth } from '../types/auth';
 import { dropToken, saveToken } from '../services/token';
 import { store } from '.';
+import {Review} from '../types/review.ts';
+import {UserReview} from '../types/user-review.ts';
+import {getErrorMessage} from '../utils/helpers.ts';
 
 
 export const clearErrorAction = createAsyncThunk(
@@ -37,6 +44,80 @@ export const fetchOffersAction = createAsyncThunk<
     dispatch(setOffersLoadingStatus(false));
     dispatch(loadOffers(data));
   }
+);
+
+export const fetchSingleOfferAction = createAsyncThunk<
+  void,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'offers/fetchSingleOffer',
+  async (offerId, {dispatch, extra: api}) => {
+    dispatch(setSingleOfferLoadingStatus(true));
+    const {data} = await api.get<Offer>(`${ApiRoute.Offers}/${offerId}`);
+    dispatch(setSingleOfferLoadingStatus(false));
+    dispatch(loadSingleOffer(data));
+  }
+);
+
+export const fetchReviewsAction = createAsyncThunk<
+  void,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'reviews/fetchReviews',
+  async (offerId, {dispatch, extra: api}) => {
+    dispatch(setReviewsLoadingStatus(true));
+    const {data} = await api.get<Review[]>(`${ApiRoute.Reviews}/${offerId}`);
+    dispatch(setReviewsLoadingStatus(false));
+    dispatch(loadReviews(data));
+  }
+);
+
+export const fetchNearOffersAction = createAsyncThunk<
+  void,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+
+  }
+>(
+  'offers/fetchNearOffers',
+  async (id, {dispatch, extra: api}) => {
+    dispatch(setNearOffersLoadingStatus(true));
+    const {data} = await api.get<Offer[]>(`${ApiRoute.Offers}/${id}/nearby`);
+    dispatch(setNearOffersLoadingStatus(false));
+    dispatch(loadNearOffers(data));
+  }
+);
+
+export const sendReviewAction = createAsyncThunk<void, UserReview, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/sendReview',
+  async ({ comment, rating, offerId }, {dispatch, extra: api, rejectWithValue }) => {
+    try {
+      rating = parseInt(String(rating), 10);
+      await api.post<UserReview>(`${ApiRoute.Reviews}/${offerId}`, { comment, rating });
+      dispatch(redirectToRoute(`${ApiRoute.Offers}/${offerId}`));
+    } catch (error) {
+      const message = getErrorMessage(error);
+      dispatch(setError(message));
+      return rejectWithValue(message);
+    }
+  },
 );
 
 export const checkAuthAction = createAsyncThunk<
@@ -73,15 +154,8 @@ export const loginAction = createAsyncThunk<void, Auth, {
       dispatch(requireAuthorization(AuthStatus.Auth));
       dispatch(redirectToRoute(Pages.Main));
     } catch (error) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const message = error instanceof AxiosError
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        ? error.response?.data?.message ?? error.message
-        : 'Неизвестная ошибка';
-
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      const message = getErrorMessage(error);
       dispatch(setError(message));
-
       return rejectWithValue(message);
     }
   },

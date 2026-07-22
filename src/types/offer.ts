@@ -11,13 +11,13 @@ export type Offer = {
   description: string;
   bedrooms: number;
   goods: string[];
-  host: Host;
+  host: OfferHost;
   previewImage: string;
   images: string[];
   maxAdults: number;
 }
 
-export type Host = {
+export type OfferHost = {
   name: string;
   avatarUrl: string;
   isPro: boolean;

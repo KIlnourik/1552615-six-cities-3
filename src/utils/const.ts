@@ -10,12 +10,9 @@ export enum Pages {
 
 export enum ApiRoute {
   Offers = '/offers',
-  Offer = '/offers/{offerId}',
-  NearPlaces = '/offers/{offerId}/nearby',
-  Favorite = '/favorite',
-  Comments = '/comments/{offerId}',
   Login = '/login',
-  Logout = '/logout'
+  Logout = '/logout',
+  Reviews = '/comments'
 }
 
 export enum PageClassNames {
@@ -102,3 +99,8 @@ export const CITIES: City[] = [
 export const DEFAULT_CITY: City = CITIES[0];
 
 export const TIMEOUT_SHOW_ERROR = 2000;
+
+export const MAX_RATING_VALUE = 5;
+export const MIN_RATING_VALUE = 1;
+export const MIN_REVIEW_LENGTH = 50;
+export const MAX_REVIEW_LENGTH = 300;
